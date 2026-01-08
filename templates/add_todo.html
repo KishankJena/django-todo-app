@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{% if todo %}Edit Todo{% else %}Add Todo{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card p-4 shadow-lg" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+            
+            <div class="text-center mb-4">
+                <i class="bi {% if todo %}bi-pencil-square{% else %}bi-plus-circle{% endif %} text-primary" style="font-size: 3rem;"></i>
+                <h2 class="fw-bold text-white mt-2">{% if todo %}Edit Task{% else %}Add New Task{% endif %}</h2>
+                <p class="text-white-50">{% if todo %}Modify your task details below{% else %}Create a new item for your list{% endif %}</p>
+            </div>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label class="form-label text-white fw-semibold">Task Title</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white-50">
+                            <i class="bi bi-type"></i>
+                        </span>
+                        <input type="text" name="title" 
+                               class="form-control bg-dark border-secondary text-white px-3" 
+                               value="{{ todo.title|default_if_none:'' }}" 
+                               placeholder="e.g. Finish Django Project" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-white fw-semibold">Description</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-white-50">
+                            <i class="bi bi-text-paragraph"></i>
+                        </span>
+                        <textarea name="desc" rows="4" 
+                                  class="form-control bg-dark border-secondary text-white px-3" 
+                                  placeholder="Add some more details...">{{ todo.desc|default_if_none:'' }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-8">
+                        <button class="btn btn-primary btn-lg w-100 fw-bold" type="submit">
+                            <i class="bi bi-save"></i> Save Task
+                        </button>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-outline-light btn-lg w-100" href="{% url 'list' %}">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

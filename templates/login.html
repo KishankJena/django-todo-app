@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-5">
+    <div class="card p-4 shadow-lg" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);">
+      
+      <div class="text-center mb-4">
+        <i class="bi bi-shield-lock text-primary" style="font-size: 3rem;"></i>
+        <h2 class="fw-bold text-white mt-2">Welcome Back</h2>
+        <p class="text-white-50">Please enter your credentials to continue</p>
+      </div>
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+        
+        <div class="mb-3">
+          <label class="form-label text-white fw-semibold">Username</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-white-50">
+              <i class="bi bi-person"></i>
+            </span>
+            <input type="text" name="username" 
+                   class="form-control bg-dark border-secondary text-white px-3" 
+                   placeholder="Your username" required>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-white fw-semibold">Password</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary text-white-50">
+              <i class="bi bi-key"></i>
+            </span>
+            <input type="password" name="password" 
+                   class="form-control bg-dark border-secondary text-white px-3" 
+                   placeholder="Your password" required>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary btn-lg fw-bold" type="submit">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
+          
+          <div class="text-center mt-3">
+            <span class="text-white-50 small">New here?</span>
+            <a class="text-primary text-decoration-none small fw-bold ms-1" href="{% url 'signup' %}">Create account</a>
+          </div>
+        </div>
+      </form>
+
+      {# Display global errors like "Invalid username or password" #}
+      {% if form.non_field_errors %}
+        <div class="alert alert-danger mt-3 py-2 small bg-danger bg-opacity-25 border-danger text-white">
+          {% for error in form.non_field_errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

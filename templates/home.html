@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-12 col-md-8 text-center">
+        <div class="mb-4">
+            <div class="d-inline-block p-4 rounded-circle mb-3" style="background: rgba(13, 110, 253, 0.1); border: 1px solid rgba(13, 110, 253, 0.2);">
+                <i class="bi bi-check2-all text-primary" style="font-size: 4rem;"></i>
+            </div>
+        </div>
+
+        <h1 class="display-4 fw-bold text-white mb-3">Master your day.</h1>
+        <p class="lead text-white-50 mb-5">
+            The simplest way to organize your tasks, track your progress, and stay productive. 
+            All your goals, one secure place.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'list' %}" class="btn btn-primary btn-lg px-5 fw-bold shadow">
+                    <i class="bi bi-list-task"></i> View My List
+                </a>
+                <a href="{% url 'add' %}" class="btn btn-outline-light btn-lg px-5">
+                    <i class="bi bi-plus-circle"></i> Create Task
+                </a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-5 fw-bold shadow">
+                    Get Started Free
+                </a>
+                <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-5">
+                    Sign In
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
